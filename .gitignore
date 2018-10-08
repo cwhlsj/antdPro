@@ -30,8 +30,8 @@ functions/mock
 .temp/**
 
 # umi
-.umi
-.umi-production
+#.umi
+#.umi-production
 
 # screenshot
 screenshot
