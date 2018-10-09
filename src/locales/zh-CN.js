@@ -1,4 +1,4 @@
-/* eslint-disable linebreak-style */
+
 // import zhMessages from '../../locales/zh.json';
 
 export default {

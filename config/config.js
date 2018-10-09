@@ -1,3 +1,4 @@
+
 // https://umijs.org/config/
 import os from 'os';
 import pageRoutes from './router.config';
@@ -99,4 +100,13 @@ export default {
   cssnano: {
     mergeRules: false,
   },
+
+  proxy:{
+    '/server/': {
+      target: 'http://localhost:80',
+      changeOrigin: true,
+      pathRewrite: { '^/server': '' }, // /server/api/currentUser -> /api/currentUser
+    },
+  },
+
 };

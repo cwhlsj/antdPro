@@ -1,4 +1,4 @@
-/* eslint-disable linebreak-style */
+
 import { message } from 'antd';
 import defaultSettings from '../defaultSettings';
 

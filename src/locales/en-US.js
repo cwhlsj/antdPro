@@ -1,3 +1,4 @@
+
 export default {
   'navbar.lang': '中文',
   'layout.user.link.help': 'help',
@@ -36,6 +37,8 @@ export default {
   'component.noticeIcon.cleared': 'Cleared',
   'component.noticeIcon.empty': 'No notifications',
   'menu.home': 'Home',
+  'menu.newMenu': 'newMenu',
+  'menu.newMenu.newPage': 'newPage',
   'menu.dashboard': 'Dashboard',
   'menu.dashboard.analysis': 'Analysis',
   'menu.dashboard.monitor': 'Monitor',

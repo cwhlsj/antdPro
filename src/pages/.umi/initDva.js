@@ -17,6 +17,7 @@ app.use(createLoading());
 app.model({ namespace: 'global', ...(require('F:/react/antdPro/my-project/src/models/global.js').default) });
 app.model({ namespace: 'list', ...(require('F:/react/antdPro/my-project/src/models/list.js').default) });
 app.model({ namespace: 'login', ...(require('F:/react/antdPro/my-project/src/models/login.js').default) });
+app.model({ namespace: 'newPage', ...(require('F:/react/antdPro/my-project/src/models/newPage.js').default) });
 app.model({ namespace: 'project', ...(require('F:/react/antdPro/my-project/src/models/project.js').default) });
 app.model({ namespace: 'setting', ...(require('F:/react/antdPro/my-project/src/models/setting.js').default) });
 app.model({ namespace: 'user', ...(require('F:/react/antdPro/my-project/src/models/user.js').default) });

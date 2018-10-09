@@ -1,4 +1,4 @@
-/* eslint-disable linebreak-style,spaced-comment */
+
 export default [
   // user
   {
@@ -13,12 +13,12 @@ export default [
     ],
   },
 
-  // new
+  // new,新增测试页面
   {
     path: '/new',
     component: '../layouts/BlankLayout',
     routes: [
-      { path: '/new', component: './User/NewPage' },
+      { path: '/new', component: './NewPage/NewPage' },
     ],
   },
 
@@ -41,17 +41,20 @@ export default [
       //     {
       //       path: '/newMenu/newPage',
       //       name: 'newPage',
-      //       component: './User/NewPage',
+      //       component: './User/Index',
       //     },
       //
       //   ],
       // },
+
+      //新增测试页面
       {
         path: '/newMenu',
         name: 'newMenu',
         icon: 'code',
-        component: './User/NewPage',
+        component: './NewPage/NewPage',
       },
+
 
       {
         path: '/dashboard',

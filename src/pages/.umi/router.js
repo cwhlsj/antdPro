@@ -73,7 +73,7 @@ let routes = [
     "routes": [
       {
         "path": "/new",
-        "component": dynamic({ loader: () => import('../User/NewPage'), loading: require('F:/react/antdPro/my-project/src/components/PageLoading/index').default  }),
+        "component": dynamic({ loader: () => import('../NewPage/NewPage'), loading: require('F:/react/antdPro/my-project/src/components/PageLoading/index').default  }),
         "exact": true
       },
       {
@@ -94,7 +94,7 @@ let routes = [
         "path": "/newMenu",
         "name": "newMenu",
         "icon": "code",
-        "component": dynamic({ loader: () => import('../User/NewPage'), loading: require('F:/react/antdPro/my-project/src/components/PageLoading/index').default  }),
+        "component": dynamic({ loader: () => import('../NewPage/NewPage'), loading: require('F:/react/antdPro/my-project/src/components/PageLoading/index').default  }),
         "exact": true
       },
       {

@@ -1,4 +1,4 @@
-/* eslint-disable linebreak-style */
+
 import { queryFakeList, removeFakeList, addFakeList, updateFakeList } from '@/services/api';
 
 export default {

@@ -1,4 +1,4 @@
-/* eslint-disable linebreak-style */
+
 import { queryNotices } from '@/services/api';
 
 export default {
@@ -11,7 +11,7 @@ export default {
 
   effects: {
     *fetchNotices(_, { call, put }) {
-// eslint-disable-next-line linebreak-style
+
       const data = yield call(queryNotices);
       yield put({
 
