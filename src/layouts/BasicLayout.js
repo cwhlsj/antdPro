@@ -205,7 +205,6 @@ class BasicLayout extends React.PureComponent {
     });
   };
 
-  //设置主题设置
   renderSettingDrawer() {
     // Do not render SettingDrawer in production
     // unless it is deployed in preview.pro.ant.design as demo

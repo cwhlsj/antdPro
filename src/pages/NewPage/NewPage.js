@@ -4,6 +4,7 @@ import { Button, notification, Card } from 'antd';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { connect } from 'dva';
+import router from 'umi/router';
 
 
 @connect(({ newPage, loading }) => ({
@@ -11,7 +12,7 @@ import { connect } from 'dva';
   submitting: loading.effects['newPage/hahaha'],
 }))
 
-export default class NewPage extends React.Component {
+ class NewPage extends React.Component {
   state = {
     value: 'test',
   };
@@ -38,14 +39,26 @@ export default class NewPage extends React.Component {
     });
   };
 
+  goUser=()=>{
+    router.push('/user')
+  }
+
   render() {
     let props = this.props;
     window.props=props;
     return (
-      <Card title="富文本编辑器">
-        <ReactQuill value={this.state.value} onChange={this.handleChange} />
-        <Button style={{ marginTop: 16 }} onClick={this.prompt}>Prompt</Button>
-      </Card>
+      <div>
+        <Card title="富文本编辑器">
+          <ReactQuill value={this.state.value} onChange={this.handleChange} />
+          <Button style={{ marginTop: 16 }} onClick={this.prompt}>Prompt</Button>
+        </Card>
+
+
+        <Button onClick={this.goUser}>页面跳转</Button>
+      </div>
+
+
     );
   }
 }
+export default NewPage

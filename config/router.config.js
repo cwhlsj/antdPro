@@ -32,7 +32,7 @@ export default [
       // dashboard
       { path: '/', redirect: '/dashboard/analysis' },
 
-      //新页面
+      // 新页面
       // {
       //   path: '/newMenu',
       //   name: 'newMenu',
@@ -47,7 +47,7 @@ export default [
       //   ],
       // },
 
-      //新增测试页面
+      // 新增测试页面
       {
         path: '/newMenu',
         name: 'newMenu',
