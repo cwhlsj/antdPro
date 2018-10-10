@@ -44,7 +44,7 @@ import router from 'umi/router';
   }
 
   render() {
-    let props = this.props;
+    const props = this.props;
     window.props=props;
     return (
       <div>

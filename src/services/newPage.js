@@ -5,7 +5,7 @@ import request from '@/utils/request';
 
 
 export async function testNewPage() {
-  return request('/lianjiacharity/project//getAllProjects');
+  return request('/server/lianjiacharity/project/getAllProjects');
 }
 
 
