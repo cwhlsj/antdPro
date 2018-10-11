@@ -103,7 +103,7 @@ export default {
 
   proxy:{
     '/server/': {
-      target: 'http://localhost:80',
+      target: 'http://localhost:8080',
       changeOrigin: true,
       pathRewrite: { '^/server': '' }, // /server/api/currentUser -> /api/currentUser
     },

@@ -1,10 +1,30 @@
 
 import React from 'react';
-import { Button, notification, Card } from 'antd';
+import { Button, notification, Card , Upload, message, Icon} from 'antd';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { connect } from 'dva';
 import router from 'umi/router';
+
+
+
+const ttt = {
+  name: 'file',
+  action: '/server/upload/file',
+  headers: {
+    authorization: 'authorization-text',
+  },
+  onChange(info) {
+    if (info.file.status !== 'uploading') {
+      console.log(info.file, info.fileList);
+    }
+    if (info.file.status === 'done') {
+      message.success(`${info.file.name} file uploaded successfully`);
+    } else if (info.file.status === 'error') {
+      message.error(`${info.file.name} file upload failed.`);
+    }
+  },
+};
 
 
 @connect(({ newPage, loading }) => ({
@@ -43,6 +63,7 @@ import router from 'umi/router';
     router.push('/user')
   }
 
+
   render() {
     const props = this.props;
     window.props=props;
@@ -55,6 +76,13 @@ import router from 'umi/router';
 
 
         <Button onClick={this.goUser}>页面跳转</Button>
+
+
+        <Upload {...ttt}>
+          <Button>
+            <Icon type="upload" /> Click to Upload
+          </Button>
+        </Upload>
       </div>
 
 
