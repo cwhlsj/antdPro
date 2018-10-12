@@ -61,7 +61,7 @@ const ttt = {
   };
 
   goUser=()=>{
-    router.push('/user')
+    router.push('/')
   }
 
 

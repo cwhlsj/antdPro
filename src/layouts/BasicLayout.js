@@ -106,7 +106,9 @@ class BasicLayout extends React.PureComponent {
         });
       }
     });
+
   }
+
 
   componentDidUpdate(preProps) {
     // After changing to phone mode,
@@ -123,6 +125,25 @@ class BasicLayout extends React.PureComponent {
     cancelAnimationFrame(this.renderRef);
     unenquireScreen(this.enquireHandler);
   }
+
+  changeSetting = (key, value) => {
+    const { setting } = this.props;
+    const nextState = { ...setting };
+    nextState[key] = value;
+    if (key === 'layout') {
+      nextState.contentWidth = value === 'topmenu' ? 'Fixed' : 'Fluid';
+    } else if (key === 'fixedHeader' && !value) {
+      nextState.autoHideHeader = false;
+    }
+    this.setState(nextState, () => {
+      const { dispatch } = this.props;
+      dispatch({
+        type: 'setting/changeSetting',
+        payload: this.state,
+      });
+    });
+  };
+
 
   getContext() {
     const { location } = this.props;

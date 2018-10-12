@@ -15,8 +15,20 @@ export default [
 
 
 
+  //test
+  {
+    path: '/test',
+    component: '../layouts/UserLayout',
+    routes: [
+      { path: '/test', redirect: '/user/login' },
+      { path: '/test/login', component: './User/Login' },
+      { path: '/test/register', component: './User/Register' },
+      { path: '/test/register-result', component: './User/RegisterResult' },
+    ],
+  },
 
-  // 前台布局系统路由
+
+  // 前台系统路由
   {
     path: '/',
     component: '../layouts/BasicLayout',
@@ -275,20 +287,6 @@ export default [
         component: '404',
       },
 
-    ],
-  },
-
-
-
-  //test
-  {
-    path: '/test',
-    component: '../layouts/UserLayout',
-    routes: [
-      { path: '/test', redirect: '/user/login' },
-      { path: '/test/login', component: './User/Login' },
-      { path: '/test/register', component: './User/Register' },
-      { path: '/test/register-result', component: './User/RegisterResult' },
     ],
   },
 

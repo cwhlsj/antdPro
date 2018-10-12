@@ -13,6 +13,11 @@ let routes = [
     "exact": true
   },
   {
+    "path": "/test",
+    "redirect": "/user/login",
+    "exact": true
+  },
+  {
     "path": "/form/step-form",
     "name": "stepform",
     "redirect": "/form/step-form/info",
@@ -39,11 +44,6 @@ let routes = [
     "exact": true
   },
   {
-    "path": "/test",
-    "redirect": "/user/login",
-    "exact": true
-  },
-  {
     "path": "/user",
     "component": dynamic({ loader: () => import('../../layouts/UserLayout'), loading: require('F:/react/antdPro/my-project/src/components/PageLoading/index').default  }),
     "routes": [
@@ -59,6 +59,30 @@ let routes = [
       },
       {
         "path": "/user/register-result",
+        "component": dynamic({ loader: () => import('../User/RegisterResult'), loading: require('F:/react/antdPro/my-project/src/components/PageLoading/index').default  }),
+        "exact": true
+      },
+      {
+        "component": () => React.createElement(require('F:/react/antdPro/my-project/node_modules/umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
+      }
+    ]
+  },
+  {
+    "path": "/test",
+    "component": dynamic({ loader: () => import('../../layouts/UserLayout'), loading: require('F:/react/antdPro/my-project/src/components/PageLoading/index').default  }),
+    "routes": [
+      {
+        "path": "/test/login",
+        "component": dynamic({ loader: () => import('../User/Login'), loading: require('F:/react/antdPro/my-project/src/components/PageLoading/index').default  }),
+        "exact": true
+      },
+      {
+        "path": "/test/register",
+        "component": dynamic({ loader: () => import('../User/Register'), loading: require('F:/react/antdPro/my-project/src/components/PageLoading/index').default  }),
+        "exact": true
+      },
+      {
+        "path": "/test/register-result",
         "component": dynamic({ loader: () => import('../User/RegisterResult'), loading: require('F:/react/antdPro/my-project/src/components/PageLoading/index').default  }),
         "exact": true
       },
@@ -370,30 +394,6 @@ let routes = [
       },
       {
         "component": dynamic({ loader: () => import('../404'), loading: require('F:/react/antdPro/my-project/src/components/PageLoading/index').default  }),
-        "exact": true
-      },
-      {
-        "component": () => React.createElement(require('F:/react/antdPro/my-project/node_modules/umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
-      }
-    ]
-  },
-  {
-    "path": "/test",
-    "component": dynamic({ loader: () => import('../../layouts/UserLayout'), loading: require('F:/react/antdPro/my-project/src/components/PageLoading/index').default  }),
-    "routes": [
-      {
-        "path": "/test/login",
-        "component": dynamic({ loader: () => import('../User/Login'), loading: require('F:/react/antdPro/my-project/src/components/PageLoading/index').default  }),
-        "exact": true
-      },
-      {
-        "path": "/test/register",
-        "component": dynamic({ loader: () => import('../User/Register'), loading: require('F:/react/antdPro/my-project/src/components/PageLoading/index').default  }),
-        "exact": true
-      },
-      {
-        "path": "/test/register-result",
-        "component": dynamic({ loader: () => import('../User/RegisterResult'), loading: require('F:/react/antdPro/my-project/src/components/PageLoading/index').default  }),
         "exact": true
       },
       {
