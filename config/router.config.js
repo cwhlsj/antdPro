@@ -13,16 +13,10 @@ export default [
     ],
   },
 
-  // new,新增测试页面
-  {
-    path: '/new',
-    component: '../layouts/BlankLayout',
-    routes: [
-      { path: '/new', component: './NewPage/NewPage' },
-    ],
-  },
 
-  // app
+
+
+  // 前台布局系统路由
   {
     path: '/',
     component: '../layouts/BasicLayout',
@@ -31,22 +25,6 @@ export default [
     routes: [
       // dashboard
       { path: '/', redirect: '/dashboard/analysis' },
-
-      // 新页面
-      // {
-      //   path: '/newMenu',
-      //   name: 'newMenu',
-      //   icon: 'code',
-      //   routes: [
-      //     {
-      //       path: '/newMenu/newPage',
-      //       name: 'newPage',
-      //       component: './User/Index',
-      //     },
-      //
-      //   ],
-      // },
-
       // 新增测试页面
       {
         path: '/newMenu',
@@ -300,6 +278,8 @@ export default [
     ],
   },
 
+
+
   //test
   {
     path: '/test',
@@ -310,5 +290,11 @@ export default [
       { path: '/test/register', component: './User/Register' },
       { path: '/test/register-result', component: './User/RegisterResult' },
     ],
-  }
+  },
+
+
+
+
+
 ];
+

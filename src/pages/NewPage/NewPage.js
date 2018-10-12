@@ -11,6 +11,7 @@ import router from 'umi/router';
 const ttt = {
   name: 'file',
   action: '/server/upload/file',
+  multiple:true,
   headers: {
     authorization: 'authorization-text',
   },

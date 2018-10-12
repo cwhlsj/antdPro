@@ -68,20 +68,6 @@ let routes = [
     ]
   },
   {
-    "path": "/new",
-    "component": dynamic({ loader: () => import('../../layouts/BlankLayout'), loading: require('F:/react/antdPro/my-project/src/components/PageLoading/index').default  }),
-    "routes": [
-      {
-        "path": "/new",
-        "component": dynamic({ loader: () => import('../NewPage/NewPage'), loading: require('F:/react/antdPro/my-project/src/components/PageLoading/index').default  }),
-        "exact": true
-      },
-      {
-        "component": () => React.createElement(require('F:/react/antdPro/my-project/node_modules/umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
-      }
-    ]
-  },
-  {
     "path": "/",
     "component": dynamic({ loader: () => import('../../layouts/BasicLayout'), loading: require('F:/react/antdPro/my-project/src/components/PageLoading/index').default  }),
     "Routes": [require('../Authorized').default],
