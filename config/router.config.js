@@ -15,17 +15,6 @@ export default [
 
 
 
-  //test
-  // {
-  //   path: '/test',
-  //   component: '../layouts/UserLayout',
-  //   routes: [
-  //     { path: '/test', redirect: '/user/login' },
-  //     { path: '/test/login', component: './User/Login' },
-  //     { path: '/test/register', component: './User/Register' },
-  //     { path: '/test/register-result', component: './User/RegisterResult' },
-  //   ],
-  // },
 
 
   // 前台系统路由
