@@ -16,6 +16,7 @@ export function getAuthority(str) {
     return [authority];
   }
   return authority || ['admin'];
+  // return authority || ['guest'];//修改默认权限
 }
 
 export function setAuthority(authority) {

@@ -75,6 +75,9 @@ let routes = [
         "path": "/newMenu",
         "name": "newMenu",
         "icon": "code",
+        "authority": [
+          "user"
+        ],
         "component": dynamic({ loader: () => import('../NewPage/NewPage'), loading: require('F:/react/antdPro/my-project/src/components/PageLoading/index').default  }),
         "exact": true
       },

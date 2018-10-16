@@ -17,7 +17,7 @@ export default [
 
 
 
-  // 前台系统路由
+  // 后台系统路由
   {
     path: '/',
     component: '../layouts/BasicLayout',
@@ -31,6 +31,7 @@ export default [
         path: '/newMenu',
         name: 'newMenu',
         icon: 'code',
+        authority: [ 'user'],
         component: './NewPage/NewPage',
       },
 
@@ -190,6 +191,7 @@ export default [
         name: 'exception',
         icon: 'warning',
         path: '/exception',
+        // authority: [],
         routes: [
           // exception
           {
