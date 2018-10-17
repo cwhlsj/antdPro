@@ -40,11 +40,11 @@ const ttt = {
 
 
   componentDidMount(){
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'newPage/hahaha',
-      // payload: values.mobile,
-    })
+    // const { dispatch } = this.props;
+    // dispatch({
+    //   type: 'newPage/hahaha',
+    //   // payload: values.mobile,
+    // })
   }
 
   handleChange = (value) => {
@@ -65,9 +65,21 @@ const ttt = {
   }
 
 
+  changeState=()=>{
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'newPage/changestate',
+      param:{
+        test:"测试"
+      }
+
+    })
+  }
+
+
   render() {
-    const props = this.props;
-    window.props=props;
+    const { test } = this.props;
+    window.props=this.props;
     return (
       <div>
         <Card title="富文本编辑器">
@@ -76,14 +88,25 @@ const ttt = {
         </Card>
 
 
+
+        <div>
         <Button onClick={this.goUser}>页面跳转</Button>
+        </div>
+        <div>
+        <Button onClick={this.changeState}>点击获取props</Button>
+        </div>
 
 
+        <div>
+          { this.props.newPage.test }
+        </div>
+        <div>
         <Upload {...ttt}>
           <Button>
             <Icon type="upload" /> Click to Upload
           </Button>
         </Upload>
+        </div>
       </div>
 
 

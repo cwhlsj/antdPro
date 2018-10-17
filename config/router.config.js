@@ -31,8 +31,28 @@ export default [
         path: '/newMenu',
         name: 'newMenu',
         icon: 'code',
-        authority: [ 'user'],
+        authority: [ 'admin'],
         component: './NewPage/NewPage',
+      },
+    // 新增管理员页
+      {
+        path: '/admin',
+        name: 'admin',
+        icon: 'code',
+        authority: [ 'admin'],
+        routes: [
+          {
+            path:'/admin/addAdmin',
+            name:'addAdmin',
+            component: './AdminManage/AdminForm',
+          },
+          {
+            path:'/admin/adminList',
+            name:'adminList',
+            component: './AdminManage/AdminList',
+          }
+        ],
+
       },
 
 

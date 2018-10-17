@@ -75,7 +75,7 @@ class LoginPage extends Component {
               login.type === 'account' &&
               !submitting &&
               this.renderMessage('账户或密码错误')}
-            <UserName name="name" placeholder="请输入用户名" />
+            <UserName name="account" placeholder="请输入用户名" />
             <Password
               name="password"
               placeholder="请输入密码"

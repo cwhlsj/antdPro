@@ -76,10 +76,35 @@ let routes = [
         "name": "newMenu",
         "icon": "code",
         "authority": [
-          "user"
+          "admin"
         ],
         "component": dynamic({ loader: () => import('../NewPage/NewPage'), loading: require('F:/react/antdPro/my-project/src/components/PageLoading/index').default  }),
         "exact": true
+      },
+      {
+        "path": "/admin",
+        "name": "admin",
+        "icon": "code",
+        "authority": [
+          "admin"
+        ],
+        "routes": [
+          {
+            "path": "/admin/addAdmin",
+            "name": "addAdmin",
+            "component": dynamic({ loader: () => import('../AdminManage/AdminForm'), loading: require('F:/react/antdPro/my-project/src/components/PageLoading/index').default  }),
+            "exact": true
+          },
+          {
+            "path": "/admin/adminList",
+            "name": "adminList",
+            "component": dynamic({ loader: () => import('../AdminManage/AdminList'), loading: require('F:/react/antdPro/my-project/src/components/PageLoading/index').default  }),
+            "exact": true
+          },
+          {
+            "component": () => React.createElement(require('F:/react/antdPro/my-project/node_modules/umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
+          }
+        ]
       },
       {
         "path": "/dashboard",

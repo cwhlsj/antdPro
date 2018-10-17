@@ -15,6 +15,17 @@ export default {
 
   effects: {
 
+    *changestate({ param }, { call,put }) {
+      // const response=yield call(testNewPage, param);
+      yield put({
+              type: 'test',
+              param: param,
+            });
+
+      console.log(param)
+    },
+
+
     *hahaha({ payload }, { call }) {
       const response=yield call(testNewPage, payload);
       // yield put({
@@ -82,6 +93,13 @@ export default {
       return {
         ...state,
 
+      };
+    },
+    test(state, { param }) {
+      // setAuthority(payload.currentAuthority);
+      return {
+        ...state,
+        ...param
       };
     },
   },
