@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import request from '@/utils/request';
+import { getQueryParam } from '@/utils/utils';
 import {
   Form,
   Input,
@@ -8,41 +9,78 @@ import {
   Select,
   Button,
   Card,
-  InputNumber,
   Radio,
-  Icon,
-  Tooltip,
   message
 } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
-import styles from './AdminFormStyle.less';
-import { stringify } from 'qs';
+
 
 const FormItem = Form.Item;
-const { Option } = Select;
-const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 const RadioGroup = Radio.Group;
 
 @connect(({ admin,loading }) => ({
   admin,
   submitting: loading.effects['admin/addOrUpdateAdmin'],
+  formData:admin.adminProps
 }))
 @Form.create()
 class AdminForm extends PureComponent {
 
   state = {
-
     confirmDirty: false,
     visible: false,
     help: '',
 
   };
+
+  componentWillMount(){
+    const id = getQueryParam('editId');
+    //编辑页加载数据
+    if(id){
+      const { dispatch } = this.props;
+      dispatch({
+        type: 'admin/getAdminById',
+        payload: {
+          id:id,
+        },
+      });
+    }
+  }
+  //离开页面初始化adminProps
+  componentWillUnmount(){
+    const id = getQueryParam('editId');
+
+      const { dispatch } = this.props;
+      dispatch({
+        type: 'admin/updateAdminProps',
+        payload: {
+          id:undefined,
+          name: undefined,
+          password: undefined,
+          account: undefined,
+          phone: undefined,
+          email: undefined,
+          description: undefined,
+          authority: undefined,
+        },
+      });
+  }
+
   handleSubmit = e => {
+    const id=getQueryParam('editId');
     const { dispatch, form } = this.props;
     e.preventDefault();
     form.validateFieldsAndScroll((err, values) => {
       if (!err) {
+        //编辑页form表单有id
+        if(id){
+          values={
+            ...values,
+            id:id,
+            status:1
+          }
+        }
         dispatch({
           type: 'admin/addOrUpdateAdmin',
           admin: values,
@@ -65,13 +103,13 @@ class AdminForm extends PureComponent {
   };
 
   checkAdminAccount = (rule, value, callback) => {
-
+    const { formData ,form} = this.props;
     request('/server/admin/checkAdminCount?account='+value).then(
       response=>{
-
         if(response){
             if (response.code===1){
-              if(response.data===1)
+              //数据库存在账户并且与编辑页当前账户不同就给出提示账号已存在
+              if(response.data===1&& formData.account!==form.getFieldValue('account') )
                 callback('该账号已存在！')
               else callback();
             }
@@ -118,7 +156,7 @@ class AdminForm extends PureComponent {
 
   render() {
     window.props=this.props
-    const { submitting } = this.props;
+    const { submitting,formData } = this.props;
     const {
       form: { getFieldDecorator, getFieldValue },
     } = this.props;
@@ -144,14 +182,15 @@ class AdminForm extends PureComponent {
 
     return (
       <PageHeaderWrapper
-        title="新增普通管理员"
-        content="最高权限管理员可分配普通管理员账号，该页面普通管理员不可见。"
+        title={getQueryParam('editId')? '编辑管理员':"新增管理员"}
+        content="最高权限admin管理员可分配普通管理员user账号，该页面普通管理员不可见。"
       >
         <div>
         <Card bordered={false}>
           <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
             <FormItem {...formItemLayout} label="账号名称">
               {getFieldDecorator('account', {
+                initialValue:formData.account ,
                 rules: [
                   {
                     required: true,
@@ -166,6 +205,7 @@ class AdminForm extends PureComponent {
 
             <FormItem {...formItemLayout} label="密码">
               {getFieldDecorator('password', {
+                initialValue:formData.password,
                 rules: [
                   {
                     required: true,
@@ -179,6 +219,7 @@ class AdminForm extends PureComponent {
             </FormItem>
             <FormItem {...formItemLayout} label="确认密码">
               {getFieldDecorator('confirm', {
+                initialValue:formData.password ,
                 rules: [
                   {
                     required: true,
@@ -192,6 +233,7 @@ class AdminForm extends PureComponent {
             </FormItem>
             <FormItem {...formItemLayout} label="用户姓名">
               {getFieldDecorator('name', {
+                initialValue:formData.name ,
                 rules: [
                   {
                     required: true,
@@ -203,6 +245,7 @@ class AdminForm extends PureComponent {
             </FormItem>
             <FormItem {...formItemLayout} label="手机号码">
               {getFieldDecorator('phone', {
+                initialValue:formData.phone ,
                 rules: [
                   {
                     required: true,
@@ -217,6 +260,7 @@ class AdminForm extends PureComponent {
             </FormItem>
             <FormItem {...formItemLayout} label="电子邮箱">
               {getFieldDecorator('email', {
+                initialValue:formData.email ,
                 rules: [
                   {
                     required: true,
@@ -232,7 +276,8 @@ class AdminForm extends PureComponent {
 
 
             <FormItem {...formItemLayout} label="该账号职责描述">
-              {getFieldDecorator('describe', {
+              {getFieldDecorator('description', {
+                initialValue:formData.description ,
                 rules: [
                   {
                     required: true,
@@ -253,6 +298,7 @@ class AdminForm extends PureComponent {
             <FormItem {...formItemLayout} label="权限">
 
               {getFieldDecorator('authority', {
+                initialValue:formData.authority ,
                 rules: [
                   {
                     required: true,
@@ -271,7 +317,7 @@ class AdminForm extends PureComponent {
               <Button type="primary" htmlType="submit" loading={submitting}>
                 提交
               </Button>
-              <Button style={{ marginLeft: 8 }}>保存</Button>
+
             </FormItem>
           </Form>
         </Card>

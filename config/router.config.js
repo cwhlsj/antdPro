@@ -34,7 +34,7 @@ export default [
         authority: [ 'admin'],
         component: './NewPage/NewPage',
       },
-    // 新增管理员页
+    // 管理员管理页
       {
         path: '/admin',
         name: 'admin',
@@ -42,15 +42,33 @@ export default [
         authority: [ 'admin'],
         routes: [
           {
-            path:'/admin/addAdmin',
-            name:'addAdmin',
-            component: './AdminManage/AdminForm',
-          },
-          {
             path:'/admin/adminList',
             name:'adminList',
             component: './AdminManage/AdminList',
-          }
+          },
+          {
+            path:'/admin/addAdmin',
+            name:'addAdmin',
+
+            component: './AdminManage/AdminForm',
+          },
+
+        ],
+
+      },
+
+      // banner管理员页
+      {
+        path: '/banner',
+        name: 'banner',
+        icon: 'code',
+        routes: [
+          {
+            path:'/banner/bannerList',
+            name:'bannerList',
+            component: './BannerManage/BannerList',
+          },
+
         ],
 
       },

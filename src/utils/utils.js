@@ -135,6 +135,14 @@ export function getPageQuery() {
   return parse(window.location.href.split('?')[1]);
 }
 
+
+//获取URL参数值，传参数获取值
+export const getQueryParam = (key) => {
+  let reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+  let result = window.location.search.substr(1).match(reg);
+  return result ? decodeURIComponent(result[2]) : null;
+};
+
 export function getQueryPath(path = '', query = {}) {
   const search = stringify(query);
   if (search.length) {
