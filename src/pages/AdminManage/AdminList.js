@@ -182,14 +182,13 @@ class AdminList extends PureComponent {
       // const currentPag=admin.data.pagination.current
       const pageSize=admin.data.pagination.pageSize
 
-      debugger
+
       const values = {
         ...fieldsValue,
-        startDate:ctimeValue.length!==0? ctimeValue[0].format('YYYY-MM-DD'):undefined,
-        endDate:ctimeValue.length!==0?ctimeValue[1].format('YYYY-MM-DD'):undefined,
+        startDate:ctimeValue!==undefined&&ctimeValue.length!==0? ctimeValue[0].format('YYYY-MM-DD'):undefined,
+        endDate:ctimeValue!==undefined&&ctimeValue.length!==0?ctimeValue[1].format('YYYY-MM-DD'):undefined,
         updatedAt: fieldsValue.updatedAt && fieldsValue.updatedAt.valueOf(),
         ctimeList:undefined,
-        // currentPage:currentPag,
         pageSize:pageSize,
       };
 

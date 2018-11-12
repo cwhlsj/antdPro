@@ -15,8 +15,8 @@ export function getAuthority(str) {
   if (typeof authority === 'string') {
     return [authority];
   }
-  return authority || ['admin'];
-  // return authority || ['guest'];//修改默认权限
+  // return authority || ['admin'];
+  return authority || ['guest'];//修改默认权限
 }
 
 export function setAuthority(authority) {

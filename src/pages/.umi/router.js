@@ -123,34 +123,6 @@ let routes = [
         ]
       },
       {
-        "path": "/dashboard",
-        "name": "dashboard",
-        "icon": "dashboard",
-        "routes": [
-          {
-            "path": "/dashboard/analysis",
-            "name": "analysis",
-            "component": dynamic({ loader: () => import('../Dashboard/Analysis'), loading: require('F:/react/antdPro/my-project/src/components/PageLoading/index').default  }),
-            "exact": true
-          },
-          {
-            "path": "/dashboard/monitor",
-            "name": "monitor",
-            "component": dynamic({ loader: () => import('../Dashboard/Monitor'), loading: require('F:/react/antdPro/my-project/src/components/PageLoading/index').default  }),
-            "exact": true
-          },
-          {
-            "path": "/dashboard/workplace",
-            "name": "workplace",
-            "component": dynamic({ loader: () => import('../Dashboard/Workplace'), loading: require('F:/react/antdPro/my-project/src/components/PageLoading/index').default  }),
-            "exact": true
-          },
-          {
-            "component": () => React.createElement(require('F:/react/antdPro/my-project/node_modules/umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
-          }
-        ]
-      },
-      {
         "path": "/form",
         "icon": "form",
         "name": "form",

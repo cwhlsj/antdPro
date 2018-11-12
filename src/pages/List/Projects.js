@@ -13,8 +13,6 @@ import styles from './Projects.less';
 const { Option } = Select;
 const FormItem = Form.Item;
 
-/* eslint react/no-array-index-key: 0 */
-
 @connect(({ list, loading }) => ({
   list,
   loading: loading.models.list,

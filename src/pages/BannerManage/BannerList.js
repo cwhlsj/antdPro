@@ -2,6 +2,7 @@ import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import moment from 'moment';
 import {
+  Switch,
   Table,
   Card,
   Form,
@@ -9,9 +10,9 @@ import {
   Modal,
   Divider, message,
 } from 'antd';
-import StandardTable from '@/components/StandardTable';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import styles from './BannerList.less';
+
 const FormItem = Form.Item;
 const getValue = obj =>
   Object.keys(obj)
@@ -19,27 +20,44 @@ const getValue = obj =>
     .join(',');
 
 
-const CreateForm = Form.create()(props => {
-  const { modalVisible, form, handleAdd, handleModalVisible } = props;
+const EditBannerForm = Form.create()(props => {
+  const { modalVisible, form, handleEdit, handleModalVisible, record } = props;
   const okHandle = () => {
     form.validateFields((err, fieldsValue) => {
       if (err) return;
-      form.resetFields();
-      handleAdd(fieldsValue);
+        form.resetFields();
+      handleEdit(fieldsValue);
     });
   };
   return (
     <Modal
       destroyOnClose
-      title="新建规则"
+      title="编辑banner"
       visible={modalVisible}
       onOk={okHandle}
       onCancel={() => handleModalVisible()}
     >
-      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="描述">
-        {form.getFieldDecorator('desc', {
-          rules: [{ required: true, message: '请输入至少五个字符的规则描述！', min: 5 }],
-        })(<Input placeholder="请输入" />)}
+      {form.getFieldDecorator('id', {
+        initialValue: record.id,
+      })(<Input hidden/>)}
+      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="图片路径">
+        {form.getFieldDecorator('imagePath', {
+          initialValue: record.imagePath,
+          rules: [{ required: true, message: '请输入图片路径！' }],
+        })(<Input placeholder="请输入"/>)}
+      </FormItem>
+      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="链接地址">
+        {form.getFieldDecorator('link', {
+          initialValue: record.link,
+          rules: [{ required: true, message: '请输入链接地址！' }],
+        })(<Input placeholder="请输入"/>)}
+      </FormItem>
+      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="前端显示:">
+        {form.getFieldDecorator('display', {
+          initialValue: record.display === 1,
+          rules: [{ required: true }],
+        })(<Switch checkedChildren="显示" unCheckedChildren="不显示"  defaultChecked={record.display === 1}/>)}
+
       </FormItem>
     </Modal>
   );
@@ -55,93 +73,8 @@ class BannerList extends PureComponent {
     expandForm: false,
     selectedRows: [],
     formValues: {},
-    modalVisible:false,
-  };
-
-
-  componentWillMount() {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'banner/getAllBanner',
-    });
-  }
-  handleModalVisible = flag => {
-    this.setState({
-      modalVisible: !!flag,
-    });
-  };
-  handleAdd = fields => {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'rule/add',
-      payload: {
-        desc: fields.desc,
-      },
-    });
-
-    message.success('添加成功');
-    this.handleModalVisible();
-  };
-
-  deleteConfirm=(admin)=> {
-    // const formValues=this.state.formValues
-    //
-    // const { dispatch } = this.props;
-    //
-    // Modal.confirm({
-    //   title: '确定删除该管理员？',
-    //   okText: '确认',
-    //   cancelText: '取消',
-    //   onOk() {
-    //     admin={
-    //       ...admin,
-    //       status:0
-    //     }
-    //
-    //     dispatch({
-    //       type: 'admin/deleteAdmin',
-    //       payload:{
-    //         admin,
-    //         formValues
-    //       }
-    //     });
-    //
-    //   },
-    //
-    // });
-
-  }
-
-
-  handleStandardTableChange = (pagination, filtersArg, sorter) => {
-
-    const { dispatch } = this.props;
-    const { formValues } = this.state;
-
-    const filters = Object.keys(filtersArg).reduce((obj, key) => {
-      const newObj = { ...obj };
-      newObj[key] = getValue(filtersArg[key]);
-      return newObj;
-    }, {});
-
-    const params = {
-      ...formValues,
-      currentPage: pagination.current,
-      pageSize: pagination.pageSize,
-      ...filters,
-    };
-    if (sorter.field) {
-      params.sorter = `${sorter.field}_${sorter.order}`;
-    }
-
-    this.setState({
-      formValues: params,
-    });
-
-    dispatch({
-      type: 'admin/getQueryAdminData',
-      payload: params,
-    });
+    modalVisible: false,
+    record: {},
   };
 
 
@@ -157,13 +90,16 @@ class BannerList extends PureComponent {
     {
       title: '是否在前台显示',
       dataIndex: 'display',
+      render:val=>`${val===1? '是':'否'}`
     },
     {
       title: '操作',
       render: (text, record) => (
         <Fragment>
-          <a onClick={() => this.handleModalVisible(true)}>编辑</a>
-          <Divider type="vertical" />
+          <a onClick={() => this.setState({ record: record }, () => {
+            this.handleModalVisible(true);
+          })}>编辑</a>
+          <Divider type="vertical"/>
           <a onClick={() => this.deleteConfirm(record)}>清空</a>
         </Fragment>
       ),
@@ -171,32 +107,87 @@ class BannerList extends PureComponent {
   ];
 
 
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'banner/getAllBanner',
+    });
+  }
+
+  handleModalVisible = flag => {
+    this.setState({
+      modalVisible: !!flag,
+    });
+  };
+
+
+  handleEdit = fields => {
+    const { dispatch } = this.props;
+    const banner={
+      ...fields,
+      display:fields.display===true? 1:0
+    }
+    dispatch({
+      type: 'banner/edit',
+      payload: banner
+    });
+    message.success('编辑成功');
+    this.handleModalVisible();
+  };
+
+  deleteConfirm = (banner) => {
+    const { dispatch } = this.props;
+    Modal.confirm({
+      title: '确定清空该项？',
+      okText: '确认',
+      cancelText: '取消',
+      onOk() {
+        const param={
+          ...banner,
+          imagePath:'——',
+          link:'——',
+          display: 0
+        }
+
+        dispatch({
+          type: 'banner/edit',
+          payload:param
+        });
+
+      },
+
+    });
+
+  };
+
+
   render() {
-    window.props=this.props
+    window.props = this.props;
     const {
       banner: { data },
       loading,
     } = this.props;
-    const { selectedRows,modalVisible } = this.state;
+    const { modalVisible } = this.state;
     const parentMethods = {
-      handleAdd: this.handleAdd,
+      handleEdit: this.handleEdit,
       handleModalVisible: this.handleModalVisible,
+
     };
 
     return (
       <PageHeaderWrapper title="查询表格">
         <Card bordered={false}>
           <div className={styles.tableList}>
-            <StandardTable
-              selectedRows={selectedRows}
+            <Table
               loading={loading}
-              data={data}
+              dataSource={data}
               columns={this.columns}
-              onChange={this.handleStandardTableChange}
+              pagination={false}
             />
           </div>
         </Card>
-        <CreateForm {...parentMethods} modalVisible={modalVisible} />
+        <EditBannerForm {...parentMethods} modalVisible={modalVisible} display={this.state.display}
+                        record={this.state.record}/>
       </PageHeaderWrapper>
     );
   }
